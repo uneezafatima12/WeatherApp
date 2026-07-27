@@ -1,203 +1,186 @@
-# 🌤️ Weather App
+# 🌦️ Weather App
 
-A full-stack weather application that allows users to search for the current weather of any city and view their weather search history.
+A full-stack Weather Application built with **FastAPI**, **MySQL**, **HTML**, **CSS**, and **JavaScript**. The application allows users to search for real-time weather information, view a 5-day forecast, manage search history, and export weather history as a CSV file.
 
-## ✨ Features
+---
 
-- Search weather by city name
-- Current temperature
-- Humidity
-- Wind speed
-- Weather description
-- Dynamic weather icons
-- Country information
-- Weather search history
-- Clear search history
-- Loading indicator
-- Error handling
-- Responsive design
-- MySQL database integration
+## 🚀 Features
+
+- 🌤️ Search current weather by city
+- 📅 View 5-day weather forecast
+- 🗄️ Store weather search history in MySQL
+- 📖 View previous weather searches
+- ✏️ Update weather history records
+- 🗑️ Delete individual weather history records
+- 🧹 Clear all weather history
+- 📄 Export weather history as CSV
+- ⚡ FastAPI REST API
+- 🎨 Responsive frontend using HTML, CSS, and JavaScript
+
+---
 
 ## 🛠️ Technologies Used
+
+### Backend
+- FastAPI
+- SQLAlchemy
+- MySQL
+- PyMySQL
+- HTTPX
+- Python
+- Uvicorn
 
 ### Frontend
 - HTML5
 - CSS3
 - JavaScript
 
-### Backend
-- Python
-- FastAPI
-- Uvicorn
-- SQLAlchemy
-- PyMySQL
-- HTTPX
-- python-dotenv
+### Deployment
+- Railway (Backend)
+- Aiven MySQL (Database)
 
-### Database
-- MySQL
-- XAMPP
-
-### API
+### External API
 - OpenWeather API
 
-## 📁 Project Structure
+---
 
-```text
+## 📂 Project Structure
+
+```
 WeatherApp/
 │
 ├── backend/
-│   ├── routers/
-│   │   └── weather.py
+│   ├── routes/
 │   ├── database.py
 │   ├── models.py
 │   ├── main.py
 │   └── .env
 │
-├── frontend/
-│   ├── images/
-│   │   └── weather-bg.jpg
-│   ├── index.html
+├── static/
 │   ├── style.css
 │   └── script.js
 │
-├── .gitignore
+├── templates/
+│   └── index.html
+│
 ├── requirements.txt
 └── README.md
-
-
-
 ```
 
-Then paste this:
+---
 
-````markdown
-## ⚙️ Setup
+## ⚙️ Installation
 
-### 1. Create the Database
+### Clone the repository
 
-Start **Apache** and **MySQL** in XAMPP.
-
-Open phpMyAdmin and create a database named:
-
-```text
-weather_app
+```bash
+git clone https://github.com/your-username/WeatherApp.git
+cd WeatherApp
 ```
 
-The `weather_history` table will be created automatically when the application starts.
+### Create a virtual environment
 
-### 2. Create Environment Variables
-
-Create:
-
-```text
-backend/.env
-```
-
-Add:
-
-```env
-DB_USER=root
-DB_PASSWORD=
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=weather_app
-
-OPENWEATHER_API_KEY=YOUR_API_KEY
-```
-
-Replace `YOUR_API_KEY` with your own OpenWeather API key.
-
-**Never upload your `.env` file or API key to GitHub.**
-
-### 3. Install Dependencies
-
-Create a virtual environment:
-
-```powershell
+```bash
 python -m venv venv
 ```
 
-Activate it:
+### Activate the virtual environment
 
-```powershell
+Windows
+
+```bash
 venv\Scripts\activate
 ```
 
-Install the required packages:
+Mac/Linux
 
-```powershell
+```bash
+source venv/bin/activate
+```
+
+### Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the Application
+### Create a `.env` file
 
-From the WeatherApp folder, run:
+```env
+OPENWEATHER_API_KEY=your_api_key
+DATABASE_URL=your_database_url
+```
 
-```powershell
+### Run the application
+
+```bash
 uvicorn backend.main:app --reload
 ```
 
-Open:
+Open your browser:
 
-```text
+```
 http://127.0.0.1:8000
 ```
 
-## 🔌 API Endpoints
+API Documentation:
 
-### Current Weather
-
-```text
-GET /weather/{city}
 ```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## 📌 API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/weather/{city}` | Get current weather |
+| GET | `/weather/forecast/{city}` | Get 5-day forecast |
+| GET | `/weather/history/all` | Get weather history |
+| PUT | `/weather/history/{history_id}` | Update weather history |
+| DELETE | `/weather/history/{history_id}` | Delete weather history record |
+| DELETE | `/weather/history/clear` | Clear all history |
+| GET | `/weather/history/export/csv` | Export history as CSV |
+
+---
+
+## 📸 Screenshots
+
+Add screenshots of your application here.
 
 Example:
 
-```text
-GET /weather/Lahore
+```
+screenshots/
+├── home.png
+├── search.png
+├── history.png
+└── forecast.png
 ```
 
-### Weather History
+---
 
-```text
-GET /weather/history/all
-```
+## 📈 Future Improvements
 
-### Clear History
+- User authentication
+- Weather icons from OpenWeather
+- Search by current location
+- Charts for temperature trends
+- Dark mode
+- Favourite cities
+- Pagination for history
 
-```text
-DELETE /weather/history/clear
-```
-
-## 🗄️ Database
-
-Weather searches are stored in the MySQL `weather_history` table.
-
-The table stores:
-
-- City
-- Country
-- Temperature
-- Humidity
-- Wind speed
-- Weather description
-- Search date and time
-
-## 🌐 Live Demo
-
-You can access the deployed application here:
-
-https://weatherapp-production-a67a.up.railway.app
-
-## 🔐 Security
-
-Sensitive information such as the OpenWeather API key and database credentials are stored in environment variables.
-
-The `.env` file is excluded from GitHub using `.gitignore`.
+---
 
 ## 👩‍💻 Author
 
 **Uneeza Fatima**
 
-Full-Stack Weather Application
+GitHub: https://github.com/uneenzafatima12
+
+---
+
+## 📄 License
+
+This project is for educational and portfolio purposes.
