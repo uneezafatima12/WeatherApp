@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Header -->
+        <header class="header">
+            <h1>Weather App</h1>
+            <p>Check the current weather of any city</p>
+        </header>
+
+
+        <!-- Search Section -->
+        <section class="search-section">
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="cityInput"
+                    placeholder="Enter city name..."
+                    autocomplete="off"
+                >
+
+                <button id="searchBtn">
+                    Search
+                </button>
+            </div>
+
+            <p id="errorMessage" class="error"></p>
+
+        </section>
+
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            Loading weather...
+        </div>
+
+
+        <!-- Weather Card -->
+        <section id="weatherCard" class="weather-card" style="display: none;">
+
+            <div class="location">
+                <h2 id="cityName"></h2>
+                <span id="country"></span>
+            </div>
+
+            <div class="weather-main">
+
+                <div id="weatherIcon" class="weather-icon">
+                    🌤️
+                </div>
+
+                <div class="temperature">
+                <span id="temperature">--</span>°C
+                </div>
+
+                <div class="description">
+                    <span id="description"></span>
+                </div>
+
+            </div>
+
+
+            <!-- Weather Details -->
+            <div class="weather-details">
+
+                <div class="weather-item">
+                    <span class="icon">💧</span>
+                    <div>
+                        <p>Humidity</p>
+                        <strong>
+                            <span id="humidity">--</span>%
+                        </strong>
+                    </div>
+                </div>
+
+
+                <div class="weather-item">
+                    <span class="icon">🌬️</span>
+                    <div>
+                        <p>Wind Speed</p>
+                        <strong>
+                            <span id="windSpeed">--</span> m/s
+                        </strong>
+                    </div>
+                </div>
+
+
+                <div class="weather-item">
+                    <span class="icon">🌡️</span>
+                    <div>
+                        <p>Temperature</p>
+                        <strong>
+                            <span id="temperatureDetail">--</span>°C
+                        </strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Welcome Message -->
+        <section id="welcomeMessage" class="welcome">
+
+            <div class="welcome-icon">🌤️</div>
+
+            <h2>Search for a city</h2>
+
+            <p>
+                Enter a city name above to see the current weather.
+            </p>
+
+        </section>
+
+<!-- Search History -->
+<section class="history-section">
+
+    <div class="history-header">
+        <div>
+            <h2>Search History</h2>
+            <p>Your recent weather searches</p>
+        </div>
+
+        <button id="clearHistoryBtn" class="clear-history">
+            Clear History
+        </button>
+    </div>
+
+    <div id="historyList" class="history-list">
+        <p class="history-empty">No searches yet.</p>
+    </div>
+
+</section>
+        <!-- Footer -->
+        <footer>
+            <p>Weather App • Powered by OpenWeather</p>
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
