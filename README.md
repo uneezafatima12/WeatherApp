@@ -184,6 +184,12 @@ The table stores:
 - Weather description
 - Search date and time
 
+## 🌐 Live Demo
+
+You can access the deployed application here:
+
+https://weatherapp-production-a67a.up.railway.app
+
 ## 🔐 Security
 
 Sensitive information such as the OpenWeather API key and database credentials are stored in environment variables.
