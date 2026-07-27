@@ -3,7 +3,6 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 
-from datetime import date
 import httpx
 import os
 import csv
@@ -98,79 +97,6 @@ async def get_weather(
 
     return weather_data
 
-
-# ============================================================
-# CREATE WEATHER RECORD WITH DATE RANGE
-# ============================================================
-
-@router.post("/history")
-async def create_weather_history(
-    city: str,
-    start_date: date,
-    end_date: date,
-    db: Session = Depends(get_db)
-):
-
-    city = city.strip()
-
-    # Validate city
-    if not city:
-        raise HTTPException(
-            status_code=400,
-            detail="City name cannot be empty"
-        )
-
-    # Validate date range
-    if start_date > end_date:
-        raise HTTPException(
-            status_code=400,
-            detail="Start date cannot be after end date"
-        )
-
-    # Prevent excessively large date ranges
-    if (end_date - start_date).days > 5:
-        raise HTTPException(
-            status_code=400,
-            detail="Date range cannot be more than 5 days"
-        )
-
-    # Get weather from OpenWeather
-    url = (
-        f"https://api.openweathermap.org/data/2.5/weather"
-        f"?q={city}&appid={API_KEY}&units=metric"
-    )
-
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-
-    if response.status_code != 200:
-        raise HTTPException(
-            status_code=404,
-            detail="City not found"
-        )
-
-    data = response.json()
-
-    # Create database record
-    history = WeatherHistory(
-        city=data["name"],
-        country=data["sys"]["country"],
-        start_date=start_date,
-        end_date=end_date,
-        temperature=data["main"]["temp"],
-        humidity=data["main"]["humidity"],
-        wind_speed=data["wind"]["speed"],
-        description=data["weather"][0]["description"]
-    )
-
-    db.add(history)
-    db.commit()
-    db.refresh(history)
-
-    return {
-        "message": "Weather record created successfully",
-        "record": history
-    }
 
 
 # ============================================================
@@ -295,9 +221,7 @@ def get_history(
 def update_history(
     history_id: int,
     city: str | None = None,
-    start_date: date | None = None,
-    end_date: date | None = None,
-    temperature: float | None = None,
+    temperature: float |None = None,
     humidity: int | None = None,
     wind_speed: float | None = None,
     description: str | None = None,
@@ -331,34 +255,7 @@ def update_history(
 
         history.city = city
 
-    # Validate date range
-    new_start_date = (
-        start_date
-        if start_date is not None
-        else history.start_date
-    )
-
-    new_end_date = (
-        end_date
-        if end_date is not None
-        else history.end_date
-    )
-
-    if (
-        new_start_date is not None
-        and new_end_date is not None
-        and new_start_date > new_end_date
-    ):
-        raise HTTPException(
-            status_code=400,
-            detail="Start date cannot be after end date"
-        )
-
-    if start_date is not None:
-        history.start_date = start_date
-
-    if end_date is not None:
-        history.end_date = end_date
+    
 
     # Validate humidity
     if humidity is not None:
@@ -472,33 +369,29 @@ def export_history_csv(
 
     # CSV header
     writer.writerow([
-        "ID",
-        "City",
-        "Country",
-        "Start Date",
-        "End Date",
-        "Temperature",
-        "Humidity",
-        "Wind Speed",
-        "Description",
-        "Searched At"
-    ])
+    "ID",
+    "City",
+    "Country",
+    "Temperature",
+    "Humidity",
+    "Wind Speed",
+    "Description",
+    "Searched At"
+])
 
     # CSV data
     for item in history:
 
         writer.writerow([
-            item.id,
-            item.city,
-            item.country,
-            item.start_date,
-            item.end_date,
-            item.temperature,
-            item.humidity,
-            item.wind_speed,
-            item.description,
-            item.searched_at
-        ])
+        item.id,
+        item.city,
+        item.country,
+        item.temperature,
+        item.humidity,
+        item.wind_speed,
+        item.description,
+        item.searched_at
+])
 
     output.seek(0)
 

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, Date
+from sqlalchemy import Column, Integer, String, Float, DateTime
 from datetime import datetime
 
 from .database import Base
@@ -12,17 +12,10 @@ class WeatherHistory(Base):
     city = Column(String(100), nullable=False)
     country = Column(String(10), nullable=False)
 
-    # Date range requested by the user
-    start_date = Column(Date, nullable=True)
-    end_date = Column(Date, nullable=True)
-
     temperature = Column(Float, nullable=False)
     humidity = Column(Integer, nullable=False)
     wind_speed = Column(Float, nullable=False)
 
     description = Column(String(200), nullable=False)
 
-    searched_at = Column(
-        DateTime,
-        default=datetime.utcnow
-    )
+    searched_at = Column(DateTime, default=datetime.utcnow)
