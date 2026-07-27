@@ -15,7 +15,14 @@ DATABASE_URL = (
     f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
 
-engine = create_engine(DATABASE_URL)
+# Use SSL only when connecting to the cloud database
+if DB_HOST != "localhost":
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"ssl": {"ssl-mode": "REQUIRED"}}
+    )
+else:
+    engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(
     autocommit=False,
