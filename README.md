@@ -69,7 +69,7 @@ WeatherApp/
 
 ```
 
-Then paste this:
+
 
 ````markdown
 ## ⚙️ Setup
