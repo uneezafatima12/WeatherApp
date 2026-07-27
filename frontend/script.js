@@ -43,6 +43,7 @@ async function searchWeather() {
 
     try {
 
+        // Use the deployed FastAPI backend
         const response = await fetch(
             `/weather/${encodeURIComponent(city)}`
         );
@@ -86,8 +87,12 @@ async function searchWeather() {
 
 
         // Update weather icon
-        document.getElementById("weatherIcon").textContent =
-            getWeatherIcon(data.description);
+        const weatherIcon = document.getElementById("weatherIcon");
+
+        if (weatherIcon) {
+            weatherIcon.textContent =
+                getWeatherIcon(data.description);
+        }
 
 
         // Show weather card
@@ -95,8 +100,8 @@ async function searchWeather() {
         weatherCard.style.display = "block";
 
 
-        // Refresh history so the new search appears immediately
-        loadHistory();
+        // Refresh history
+        await loadHistory();
 
     }
 
