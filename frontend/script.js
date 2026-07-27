@@ -101,8 +101,11 @@ async function searchWeather() {
 
 
         // Refresh history
-        await loadHistory();
+        // Load forecast
+await loadForecast(city);
 
+// Refresh history
+await loadHistory();
     }
 
     catch (error) {
@@ -304,3 +307,67 @@ document
 
 // Load history when page opens
 loadHistory();
+
+async function loadForecast(city) {
+
+    const forecastSection =
+        document.getElementById("forecastSection");
+
+    const forecastContainer =
+        document.getElementById("forecastContainer");
+
+    try {
+
+        const response = await fetch(
+            `/weather/forecast/${encodeURIComponent(city)}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load forecast.");
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        forecastContainer.innerHTML = "";
+
+        data.forecast.forEach(day => {
+
+            const card = document.createElement("div");
+
+            card.className = "forecast-card";
+
+            card.innerHTML = `
+                <h3>${day.date}</h3>
+
+                <div class="forecast-temp">
+                    ${Number(day.temperature).toFixed(1)}°C
+                </div>
+
+                <div>
+                    💧 ${day.humidity}%
+                </div>
+
+                <div>
+                    💨 ${Number(day.wind_speed).toFixed(1)} m/s
+                </div>
+
+                <div class="forecast-desc">
+                    ${day.description}
+                </div>
+            `;
+
+            forecastContainer.appendChild(card);
+        });
+
+        forecastSection.style.display = "block";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        forecastSection.style.display = "none";
+    }
+}

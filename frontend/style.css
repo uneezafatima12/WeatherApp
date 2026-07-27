@@ -412,3 +412,38 @@ footer {
         align-items: flex-start;
     }
 }
+/* ===========================
+   Forecast
+=========================== */
+
+.forecast-section{
+    margin-top:30px;
+}
+
+.forecast-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:15px;
+}
+
+.forecast-card{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.forecast-card h3{
+    margin-bottom:10px;
+}
+
+.forecast-temp{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.forecast-desc{
+    color:#666;
+    margin-top:8px;
+}
