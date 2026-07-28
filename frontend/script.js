@@ -371,3 +371,100 @@ async function loadForecast(city) {
         forecastSection.style.display = "none";
     }
 }
+// Use current location
+const locationBtn = document.getElementById("locationBtn");
+
+locationBtn.addEventListener("click", () => {
+
+    if (!navigator.geolocation) {
+        errorMessage.textContent =
+            "Geolocation is not supported by your browser.";
+        return;
+    }
+
+    loading.style.display = "block";
+    errorMessage.textContent = "";
+
+    navigator.geolocation.getCurrentPosition(
+
+        async (position) => {
+
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            try {
+
+                const response = await fetch(
+                    `/weather/coordinates/${latitude}/${longitude}`
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.detail || "Unable to get your location weather."
+                    );
+                }
+
+                document.getElementById("cityName").textContent =
+                    data.city;
+
+                document.getElementById("country").textContent =
+                    data.country;
+
+                document.getElementById("temperature").textContent =
+                    Number(data.temperature).toFixed(1);
+
+                document.getElementById("temperatureDetail").textContent =
+                    Number(data.temperature).toFixed(1);
+
+                document.getElementById("humidity").textContent =
+                    data.humidity;
+
+                document.getElementById("windSpeed").textContent =
+                    Number(data.wind_speed).toFixed(1);
+
+                document.getElementById("description").textContent =
+                    data.description;
+
+                const weatherIcon =
+                    document.getElementById("weatherIcon");
+
+                if (weatherIcon) {
+                    weatherIcon.textContent =
+                        getWeatherIcon(data.description);
+                }
+
+                welcomeMessage.style.display = "none";
+                weatherCard.style.display = "block";
+
+                await loadHistory();
+
+            } catch (error) {
+
+                console.error(error);
+
+                errorMessage.textContent =
+                    error.message ||
+                    "Unable to get weather for your location.";
+
+            } finally {
+
+                loading.style.display = "none";
+            }
+        },
+
+        (error) => {
+
+            loading.style.display = "none";
+
+            if (error.code === 1) {
+                errorMessage.textContent =
+                    "Location permission was denied. Please allow location access.";
+            } else {
+                errorMessage.textContent =
+                    "Unable to determine your current location.";
+            }
+        }
+    );
+});

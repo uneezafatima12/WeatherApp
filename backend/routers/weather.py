@@ -97,6 +97,71 @@ async def get_weather(
 
     return weather_data
 
+# ============================================================
+# GET CURRENT WEATHER BY GPS COORDINATES
+# ============================================================
+
+@router.get("/coordinates/{latitude}/{longitude}")
+async def get_weather_by_coordinates(
+    latitude: float,
+    longitude: float,
+    db: Session = Depends(get_db)
+):
+
+    # Validate coordinates
+    if latitude < -90 or latitude > 90:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid latitude"
+        )
+
+    if longitude < -180 or longitude > 180:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid longitude"
+        )
+
+    url = (
+        f"https://api.openweathermap.org/data/2.5/weather"
+        f"?lat={latitude}&lon={longitude}"
+        f"&appid={API_KEY}&units=metric"
+    )
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+
+    if response.status_code != 200:
+        raise HTTPException(
+            status_code=404,
+            detail="Unable to find weather for this location"
+        )
+
+    data = response.json()
+
+    weather_data = {
+        "city": data["name"],
+        "country": data["sys"]["country"],
+        "temperature": data["main"]["temp"],
+        "humidity": data["main"]["humidity"],
+        "wind_speed": data["wind"]["speed"],
+        "description": data["weather"][0]["description"]
+    }
+
+    # Save current-location search to database
+    history = WeatherHistory(
+        city=weather_data["city"],
+        country=weather_data["country"],
+        temperature=weather_data["temperature"],
+        humidity=weather_data["humidity"],
+        wind_speed=weather_data["wind_speed"],
+        description=weather_data["description"]
+    )
+
+    db.add(history)
+    db.commit()
+    db.refresh(history)
+
+    return weather_data
 
 
 # ============================================================
