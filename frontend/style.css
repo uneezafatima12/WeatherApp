@@ -447,8 +447,10 @@ footer {
     color:#666;
     margin-top:8px;
 }
+/* Current Location Button */
 #locationBtn {
-    margin-top: 12px;
+    display: block;
+    margin: 14px auto 0;
     border: none;
     background: #0f766e;
     color: white;
@@ -456,14 +458,18 @@ footer {
     border-radius: 12px;
     font-size: 15px;
     cursor: pointer;
+    transition: all 0.25s ease;
 }
 
 #locationBtn:hover {
     background: #115e59;
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(15, 118, 110, 0.3);
 }
 
+/* Mobile */
 @media (max-width: 650px) {
+
     #locationBtn {
         width: 100%;
     }

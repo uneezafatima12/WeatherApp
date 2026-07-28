@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,28 +21,34 @@
         </header>
 
 
-        <!-- Search Section -->
-        <section class="search-section">
+    ```html
+<!-- Search Section -->
+<section class="search-section">
 
-            <div class="search-box">
-                <input
-                    type="text"
-                    id="cityInput"
-                    placeholder="Enter city name..."
-                    autocomplete="off"
-                >
+    <div class="search-box">
 
-                <button id="searchBtn">
-                    Search
-                </button>
-                <button id="locationBtn" type="button">
-                    📍 Use My Location
-                </button>
-            </div>
+        <input
+            type="text"
+            id="cityInput"
+            placeholder="Enter city name..."
+            autocomplete="off"
+        >
 
-            <p id="errorMessage" class="error"></p>
+        <button id="searchBtn" type="button">
+            Search
+        </button>
 
-        </section>
+    </div>
+
+    <button id="locationBtn" type="button">
+        📍 Use My Location
+    </button>
+
+    <p id="errorMessage" class="error"></p>
+
+</section>
+```
+
 
 
         <!-- Loading -->
@@ -53,11 +60,14 @@
         <!-- Weather Card -->
         <section id="weatherCard" class="weather-card" style="display: none;">
 
+            <!-- Location -->
             <div class="location">
                 <h2 id="cityName"></h2>
                 <span id="country"></span>
             </div>
 
+
+            <!-- Main Weather -->
             <div class="weather-main">
 
                 <div id="weatherIcon" class="weather-icon">
@@ -65,7 +75,7 @@
                 </div>
 
                 <div class="temperature">
-                <span id="temperature">--</span>°C
+                    <span id="temperature">--</span>°C
                 </div>
 
                 <div class="description">
@@ -74,16 +84,23 @@
 
             </div>
 
+
             <!-- 5-Day Forecast -->
-<div id="forecastSection" class="forecast-section" style="display:none;">
+            <div
+                id="forecastSection"
+                class="forecast-section"
+                style="display: none;"
+            >
 
-    <h2>5-Day Forecast</h2>
+                <h2>5-Day Forecast</h2>
 
-    <div id="forecastContainer" class="forecast-container">
+                <div
+                    id="forecastContainer"
+                    class="forecast-container"
+                >
+                </div>
 
-    </div>
-
-</div>
+            </div>
 
 
             <!-- Weather Details -->
@@ -91,8 +108,10 @@
 
                 <div class="weather-item">
                     <span class="icon">💧</span>
+
                     <div>
                         <p>Humidity</p>
+
                         <strong>
                             <span id="humidity">--</span>%
                         </strong>
@@ -102,8 +121,10 @@
 
                 <div class="weather-item">
                     <span class="icon">🌬️</span>
+
                     <div>
                         <p>Wind Speed</p>
+
                         <strong>
                             <span id="windSpeed">--</span> m/s
                         </strong>
@@ -113,8 +134,10 @@
 
                 <div class="weather-item">
                     <span class="icon">🌡️</span>
+
                     <div>
                         <p>Temperature</p>
+
                         <strong>
                             <span id="temperatureDetail">--</span>°C
                         </strong>
@@ -139,28 +162,41 @@
 
         </section>
 
-<!-- Search History -->
-<section class="history-section">
 
-    <div class="history-header">
-        <div>
-            <h2>Search History</h2>
-            <p>Your recent weather searches</p>
-        </div>
+        <!-- Search History -->
+        <section class="history-section">
 
-        <button id="clearHistoryBtn" class="clear-history">
-            Clear History
-        </button>
-    </div>
+            <div class="history-header">
 
-    <div id="historyList" class="history-list">
-        <p class="history-empty">No searches yet.</p>
-    </div>
+                <div>
+                    <h2>Search History</h2>
+                    <p>Your recent weather searches</p>
+                </div>
 
-</section>
+                <button
+                    id="clearHistoryBtn"
+                    class="clear-history"
+                    type="button"
+                >
+                    Clear History
+                </button>
+
+            </div>
+
+            <div id="historyList" class="history-list">
+                <p class="history-empty">
+                    No searches yet.
+                </p>
+            </div>
+
+        </section>
+
+
         <!-- Footer -->
         <footer>
-            <p>Weather App • Powered by OpenWeather</p>
+            <p>
+                Weather App • Powered by OpenWeather
+            </p>
         </footer>
 
     </div>
@@ -170,3 +206,4 @@
 
 </body>
 </html>
+```

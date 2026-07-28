@@ -1,6 +1,7 @@
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
 
+
 const weatherCard = document.getElementById("weatherCard");
 const welcomeMessage = document.getElementById("welcomeMessage");
 
